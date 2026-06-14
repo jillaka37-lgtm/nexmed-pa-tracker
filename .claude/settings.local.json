@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import Quartz; print\\('Quartz available'\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(python3 -c \"import pypdf; print\\('pypdf', pypdf.__version__\\)\")",
+      "Bash(python3 -c ' *)",
+      "Bash(npm -v)",
+      "Read(//Users/zhilarahimi/**)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/zhilarahimi/.nvm/versions/**)",
+      "Bash(grep -E \"bin/node$\")",
+      "Bash(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh)",
+      "Bash(bash)",
+      "Bash(git mv *)",
+      "Bash(mv middleware.ts proxy.ts)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s http://localhost:3000 -o /tmp/home.html -w \"HTTP %{http_code}, %{size_download} bytes\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(cat)",
+      "Bash(chmod +x scripts/dev.sh)",
+      "Bash(sleep 3; curl -s http://localhost:3000 -o /tmp/home.html -w \"HTTP %{http_code}, %{size_download} bytes\\\\n\"; grep -o 'made personal again' /tmp/home.html | head -1; grep -oi 'turbopack error\\\\|Internal Server' /tmp/home.html | head -2)"
+    ]
+  }
+}

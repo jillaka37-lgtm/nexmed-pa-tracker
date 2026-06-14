@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/*
+  NexMed brand tokens — from NexMed_Brand_Guide_2026 (Visual Identity).
+  Dark navy canvas, teal primary, gold premium accent. Never use white backgrounds.
+*/
+@theme {
+  --color-navy: #0a1628; /* page background */
+  --color-surface: #0f1e35; /* raised surfaces */
+  --color-card: #0d1a2d; /* cards / footer */
+  --color-divider: #1a3050; /* borders */
+
+  --color-teal: #06b6d4; /* primary CTA / links / H1-H2 */
+  --color-ocean: #0891b2; /* buttons */
+  --color-gold: #f59e0b; /* premium accents */
+  --color-sky: #7dd3fc; /* secondary headings */
+  --color-health: #2dd4bf; /* success / wellness */
+
+  --color-muted: #8899bb; /* body / captions */
+  --color-offwhite: #e8edf5; /* main text */
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-merriweather), ui-serif, Georgia, serif;
+  --font-mono: var(--font-source-code), ui-monospace, monospace;
+
+  --radius-btn: 8px;
+}
+
+:root {
+  --background: #0a1628;
+  --foreground: #e8edf5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes floatPill {
+  0%, 100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-18px) rotate(var(--r, 0deg)); }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brand heading defaults */
+h1,
+h2 {
+  color: var(--color-teal);
+}
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-offwhite);
+}
+
+::selection {
+  background: var(--color-teal);
+  color: var(--color-navy);
+}
+
+/* Thin teal scrollbar to match brand */
+* {
+  scrollbar-color: var(--color-divider) transparent;
+}
+
+/* FAQ details smooth open/close */
+details > div {
+  overflow: hidden;
+}
+
+/* Gradient text utilities */
+.text-gradient-teal {
+  background: linear-gradient(135deg, var(--color-teal), var(--color-sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold), #fcd34d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
