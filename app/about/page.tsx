@@ -18,22 +18,14 @@ export default function AboutPage() {
       </div>
     <div className="mx-auto max-w-6xl px-6 py-20">
       <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-        {/* Photo placeholder — replace with a real headshot at /public/about.jpg */}
         <div className="lg:sticky lg:top-24">
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-divider bg-surface">
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-16 w-16 fill-divider"
-                aria-hidden
-              >
-                <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-9 2.5-9 6v2h18v-2c0-3.5-4-6-9-6z" />
-              </svg>
-              <p className="px-6 text-xs text-muted">
-                Your photo goes here. Drop a headshot at{" "}
-                <code className="font-mono text-sky">/public/about.jpg</code>
-              </p>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="NexMed pharmacist"
+              className="absolute inset-0 h-full w-full object-cover object-top"
+            />
           </div>
         </div>
 
@@ -45,33 +37,24 @@ export default function AboutPage() {
             Making healthcare personal again
           </h1>
 
-          {/* Bio placeholder — replace with your real story. */}
           <div className="mt-6 space-y-4 font-serif text-base leading-relaxed text-offwhite/90">
-            <p>{ELEVATOR_PITCH}</p>
-            <p>
-              <span className="rounded bg-gold/10 px-1.5 py-0.5 text-sm not-italic text-gold">
-                Placeholder
-              </span>{" "}
-              This is where your personal story will live. Tell visitors who you
-              are, your background, the people you help, and
-              why you started NexMed. Send me your bio and headshot and I&rsquo;ll
-              drop them straight in.
-            </p>
+            <p>Welcome to NexMed. I started this because I believe healthcare should feel personal again. Too often people leave feeling rushed, unheard, or like just another file in the system. I wanted to build something different.</p>
+            <p>Here you get honest guidance, real answers, and someone who actually listens. Whether you&rsquo;re managing a health concern or just trying to feel like yourself again, I&rsquo;m here to help and you&rsquo;ll always be treated like a person, not a number.</p>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          <div className="mt-8 grid gap-2 sm:grid-cols-2">
             {coreValues.map((v) => (
               <div
                 key={v.title}
-                className="rounded-xl border border-divider bg-surface p-5"
+                className="rounded-lg border border-divider bg-surface p-3"
               >
-                <div className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal/10 text-sm font-bold text-teal">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded bg-teal/10 text-xs font-bold text-teal">
                     {v.letter}
                   </span>
-                  <h3 className="text-base font-semibold">{v.title}</h3>
+                  <h3 className="text-sm font-semibold">{v.title}</h3>
                 </div>
-                <p className="mt-2 text-sm text-muted">{v.body}</p>
+                <p className="mt-1 text-xs text-muted">{v.body}</p>
               </div>
             ))}
           </div>

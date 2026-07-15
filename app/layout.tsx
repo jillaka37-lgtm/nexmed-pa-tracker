@@ -4,8 +4,8 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CartProvider } from "@/components/cart/cart-context";
-import { QuickContact } from "@/components/quick-contact";
 import { BeamsBackground } from "@/components/beams-background";
+import { ChatWidget } from "@/components/chatbot/ChatWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,7 +27,7 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://nexmed-eta.vercel.app"),
   title: {
     default: "NexMed · Pharmacy & Health Solutions",
     template: "%s | NexMed",
@@ -58,7 +58,7 @@ export default function RootLayout({
           <SiteHeader />
           <main className="relative z-10 flex-1 pt-16">{children}</main>
           <SiteFooter />
-          <QuickContact />
+          <ChatWidget />
         </CartProvider>
       </body>
     </html>

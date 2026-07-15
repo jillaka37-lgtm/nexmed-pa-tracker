@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { Logo } from "./logo";
-import { Sparkles } from "./sparkles";
-import { ShaderBanner } from "./shader-banner";
 
 const footerNav = [
   {
@@ -28,11 +26,6 @@ const footerNav = [
   },
 ];
 
-const socials = [
-  { href: "https://instagram.com", label: "Instagram" },
-  { href: "https://linkedin.com", label: "LinkedIn" },
-  { href: "https://twitter.com", label: "X" },
-];
 
 export function SiteFooter() {
   return (
@@ -129,7 +122,6 @@ export function SiteFooter() {
       <div className="border-t border-divider/60">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-muted sm:flex-row">
           <p>© {new Date().getFullYear()} NexMed. All rights reserved.</p>
-          <p>Pharmacy &amp; Health Solutions</p>
         </div>
       </div>
     </footer>

@@ -176,7 +176,7 @@ export function ServiceForm({ service }: { service?: ServiceFields }) {
             min={0}
             step="0.01"
             defaultValue={
-              service ? (service.price_cents / 100).toFixed(2) : "99.00"
+              service ? (service.price_cents / 100).toFixed(2) : "65.00"
             }
             className={`${inputClass} mt-1 w-28`}
           />

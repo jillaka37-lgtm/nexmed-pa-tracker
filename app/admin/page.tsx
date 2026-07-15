@@ -30,6 +30,10 @@ export default async function AdminPage() {
     { data: refills },
     { data: orderRows },
     { data: products },
+    { count: chatSessionCount },
+    { data: chatLeads },
+    { data: recentMessages },
+    { data: unansweredMessages },
   ] = await Promise.all([
     admin
       .from("bookings")
@@ -67,6 +71,25 @@ export default async function AdminPage() {
         "id, name, category, price_cents, currency, stock, requires_rx, active",
       )
       .order("sort_order", { ascending: true }),
+    admin.from("chat_sessions").select("*", { count: "exact", head: true }),
+    admin
+      .from("chat_leads")
+      .select("id, name, email, created_at")
+      .order("created_at", { ascending: false })
+      .limit(20),
+    admin
+      .from("chat_messages")
+      .select("id, content, feedback, latency_ms, tokens_used, rag_hit, score_faithfulness, score_relevance, score_tone, score_overall, created_at")
+      .eq("role", "assistant")
+      .order("created_at", { ascending: false })
+      .limit(50),
+    admin
+      .from("chat_messages")
+      .select("id, content, created_at")
+      .eq("role", "assistant")
+      .eq("rag_hit", false)
+      .order("created_at", { ascending: false })
+      .limit(20),
   ]);
 
   const bookings = bookingRows ?? [];
@@ -89,6 +112,24 @@ export default async function AdminPage() {
       : Promise.resolve({ data: [] as { id: string; title: string }[] }),
   ]);
 
+  // Chatbot analytics
+  type MsgRow = { feedback: number | null; latency_ms: number | null; tokens_used: number | null; score_faithfulness: number | null; score_relevance: number | null; score_tone: number | null; score_overall: number | null };
+  const msgs: MsgRow[] = (recentMessages ?? []) as MsgRow[];
+  const ratedMsgs = msgs.filter((m) => m.feedback !== null);
+  const thumbsUp = ratedMsgs.filter((m) => m.feedback === 1).length;
+  const thumbsDown = ratedMsgs.filter((m) => m.feedback === -1).length;
+  const satisfactionRate = ratedMsgs.length > 0 ? Math.round((thumbsUp / ratedMsgs.length) * 100) : null;
+  const avgLatency = msgs.filter((m) => m.latency_ms).length > 0
+    ? Math.round(msgs.reduce((s, m) => s + (m.latency_ms ?? 0), 0) / msgs.filter((m) => m.latency_ms).length)
+    : null;
+  const avgTokens = msgs.filter((m) => m.tokens_used).length > 0
+    ? Math.round(msgs.reduce((s, m) => s + (m.tokens_used ?? 0), 0) / msgs.filter((m) => m.tokens_used).length)
+    : null;
+  const scoredMsgs = msgs.filter((m) => m.score_overall !== null);
+  const avg = (key: keyof MsgRow) => scoredMsgs.length > 0
+    ? (scoredMsgs.reduce((s, m) => s + ((m[key] as number) ?? 0), 0) / scoredMsgs.length).toFixed(1)
+    : null;
+
   const profileById = new Map((profiles ?? []).map((p) => [p.id, p]));
   const serviceTitleById = new Map(
     (bookingServices ?? []).map((s) => [s.id, s.title]),
@@ -100,6 +141,104 @@ export default async function AdminPage() {
       <p className="mt-2 text-muted">
         Manage bookings, availability, and services.
       </p>
+
+      {/* Chatbot Analytics */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-semibold">Chatbot Analytics</h2>
+        <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="rounded-xl border p-4">
+            <p className="text-xs text-muted uppercase tracking-wide">Total Sessions</p>
+            <p className="mt-1 text-2xl font-bold">{chatSessionCount ?? 0}</p>
+          </div>
+          <div className="rounded-xl border p-4">
+            <p className="text-xs text-muted uppercase tracking-wide">Satisfaction</p>
+            <p className="mt-1 text-2xl font-bold">{satisfactionRate !== null ? `${satisfactionRate}%` : "—"}</p>
+            {ratedMsgs.length > 0 && <p className="text-xs text-muted mt-1">{thumbsUp}👍 {thumbsDown}👎</p>}
+          </div>
+          <div className="rounded-xl border p-4">
+            <p className="text-xs text-muted uppercase tracking-wide">Avg Latency</p>
+            <p className="mt-1 text-2xl font-bold">{avgLatency !== null ? `${avgLatency}ms` : "—"}</p>
+          </div>
+          <div className="rounded-xl border p-4">
+            <p className="text-xs text-muted uppercase tracking-wide">Avg Tokens</p>
+            <p className="mt-1 text-2xl font-bold">{avgTokens ?? "—"}</p>
+          </div>
+        </div>
+
+        {/* LLM-as-judge scores */}
+        {scoredMsgs.length > 0 && (
+          <div className="mt-6">
+            <h3 className="font-semibold">LLM-as-Judge Scores <span className="text-xs text-muted font-normal">({scoredMsgs.length} responses evaluated, scale 1–5)</span></h3>
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className="rounded-xl border p-4">
+                <p className="text-xs text-muted uppercase tracking-wide">Faithfulness</p>
+                <p className="mt-1 text-2xl font-bold text-blue-600">{avg("score_faithfulness") ?? "—"}</p>
+                <p className="text-xs text-muted mt-1">No hallucination</p>
+              </div>
+              <div className="rounded-xl border p-4">
+                <p className="text-xs text-muted uppercase tracking-wide">Relevance</p>
+                <p className="mt-1 text-2xl font-bold text-blue-600">{avg("score_relevance") ?? "—"}</p>
+                <p className="text-xs text-muted mt-1">Answered the question</p>
+              </div>
+              <div className="rounded-xl border p-4">
+                <p className="text-xs text-muted uppercase tracking-wide">Brand Tone</p>
+                <p className="mt-1 text-2xl font-bold text-blue-600">{avg("score_tone") ?? "—"}</p>
+                <p className="text-xs text-muted mt-1">Warm & professional</p>
+              </div>
+              <div className="rounded-xl border p-4 bg-blue-50 border-blue-200">
+                <p className="text-xs text-muted uppercase tracking-wide">Overall</p>
+                <p className="mt-1 text-2xl font-bold text-blue-700">{avg("score_overall") ?? "—"}</p>
+                <p className="text-xs text-muted mt-1">Combined score</p>
+              </div>
+            </div>
+          </div>
+        )}
+        {scoredMsgs.length === 0 && (
+          <p className="mt-4 text-sm text-muted">LLM-as-judge scores will appear here after the first conversations.</p>
+        )}
+
+        {/* Unanswered questions */}
+        {(unansweredMessages ?? []).length > 0 && (
+          <div className="mt-6">
+            <h3 className="font-semibold text-red-600">Unanswered Questions (no KB match)</h3>
+            <div className="mt-2 space-y-2">
+              {(unansweredMessages ?? []).map((m: { id: string; content: string; created_at: string }) => (
+                <div key={m.id} className="rounded-lg border border-red-100 bg-red-50 px-4 py-2 text-sm">
+                  <p className="text-red-800">{m.content}</p>
+                  <p className="text-xs text-red-400 mt-1">{new Date(m.created_at).toLocaleString()}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Chat leads */}
+        {(chatLeads ?? []).length > 0 && (
+          <div className="mt-6">
+            <h3 className="font-semibold">Chat Leads</h3>
+            <table className="mt-2 w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b text-left text-muted">
+                  <th className="pb-2 pr-4">Name</th>
+                  <th className="pb-2 pr-4">Email</th>
+                  <th className="pb-2">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(chatLeads ?? []).map((l: { id: string; name: string | null; email: string | null; created_at: string }) => (
+                  <tr key={l.id} className="border-b">
+                    <td className="py-2 pr-4">{l.name ?? "—"}</td>
+                    <td className="py-2 pr-4">
+                      {l.email ? <a href={`mailto:${l.email}`} className="text-blue-600 underline">{l.email}</a> : "—"}
+                    </td>
+                    <td className="py-2 text-muted text-xs">{new Date(l.created_at).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
 
       {/* Bookings */}
       <section className="mt-12">

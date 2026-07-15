@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Logo } from "./logo";
-import { ButtonLink } from "./ui/button";
 import { CartLink } from "./cart/cart-link";
 import { getProfile } from "@/lib/auth";
 import { MobileMenu } from "./mobile-menu";

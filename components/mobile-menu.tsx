@@ -20,8 +20,8 @@ export function MobileMenu({
   const pathname = usePathname();
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps -- intentional: close menu on route change
+    if (open) setOpen(false);
+  }, [pathname, open]);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };

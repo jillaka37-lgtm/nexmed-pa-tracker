@@ -1,12 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button";
-import { TestimonialDeck } from "@/components/testimonial-deck";
 import { Reveal } from "@/components/reveal";
 import { getActiveServices } from "@/lib/services";
 import { formatPrice } from "@/lib/format";
 import { InfiniteSlider } from "@/components/infinite-slider";
-import { PharmacyOrbital } from "@/components/pharmacy-orbital";
 import {
   TAGLINE,
   USP,

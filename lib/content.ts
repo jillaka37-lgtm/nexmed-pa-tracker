@@ -55,7 +55,7 @@ export const defaultServices = [
     description:
       "A focused 30-minute 1:1 session with personal, expert guidance. We review your goals, answer your questions, and leave you with a clear, actionable plan.",
     duration_min: 30,
-    price_cents: 9900,
+    price_cents: 6500,
     currency: "usd",
     active: true,
     sort_order: 1,
