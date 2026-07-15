@@ -13,18 +13,23 @@ export default async function PriorAuthPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10">
-        <p className="text-sm font-semibold uppercase tracking-wide text-teal">
-          Staff tool
-        </p>
-        <h1 className="mt-2 font-serif text-3xl font-bold text-offwhite sm:text-4xl">
-          Draft a prior authorization letter
-        </h1>
-        <p className="mt-3 max-w-2xl text-muted">
-          Enter the case details below and get a first draft of the medical
-          necessity letter in seconds. Always review before sending — this
-          drafts the letter, it doesn&rsquo;t submit it.
-        </p>
+      <div className="mb-10 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal">
+            Staff tool
+          </p>
+          <h1 className="mt-2 font-serif text-3xl font-bold text-offwhite sm:text-4xl">
+            Draft a prior authorization letter
+          </h1>
+          <p className="mt-3 max-w-2xl text-muted">
+            Enter the case details below and get a first draft of the medical
+            necessity letter in seconds. Always review before sending — this
+            drafts the letter, it doesn&rsquo;t submit it.
+          </p>
+        </div>
+        <Link href="/prior-auth/dashboard" className="shrink-0 text-sm text-teal hover:underline">
+          View all drafts →
+        </Link>
       </div>
 
       <div className="rounded-2xl border border-divider bg-card p-6 sm:p-8">
