@@ -24,7 +24,9 @@ Prior treatments tried: ${intake.priorTreatments}
 Additional notes: ${intake.notes ?? "(none provided)"}
 </case-data>
 
-Write a formal, medically appropriate prior authorization letter body addressed to the insurer's medical review team. Base the medical necessity justification strictly on the case data above — do not invent lab values, dates, or facts not present in the data. If something a strong PA letter would normally include is missing from the case data (e.g. a recent lab result, an exact treatment duration), note it as a warning instead of making it up.`;
+Write a formal, medically appropriate prior authorization letter body addressed to the insurer's medical review team. Base the medical necessity justification strictly on the case data above — do not invent lab values, dates, or facts not present in the data.
+
+The case data intentionally omits real patient identifiers (name, DOB, member ID) — this system works from de-identified case data only. Use the literal placeholder name "John Doe" wherever the patient's name belongs in the letter, and use placeholder text like "[DOB]" and "[Member ID]" for those fields. Do NOT list the missing patient name as a missingInfoWarning — that's expected and staff will fill it in before sending. DO still flag other genuinely missing clinical details (e.g. a recent lab result, exact treatment dates) as warnings.`;
 }
 
 const MAX_ATTEMPTS = 2;
