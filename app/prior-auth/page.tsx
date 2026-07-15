@@ -1,11 +1,16 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
+import { isAdmin } from "@/lib/auth";
+import { hasSupabaseEnv } from "@/lib/supabase/env";
+import { NewCaseForm } from "./NewCaseForm";
 
-export const metadata = {
-  title: "Prior Authorization Drafts",
-};
+export const metadata: Metadata = { title: "Prior Authorization Drafts" };
 
-export default function PriorAuthPage() {
+export default async function PriorAuthPage() {
+  if (!hasSupabaseEnv) redirect("/login?redirect=/prior-auth");
+  if (!(await isAdmin())) redirect("/login?redirect=/prior-auth");
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-10">
@@ -34,103 +39,5 @@ export default function PriorAuthPage() {
         .
       </p>
     </div>
-  );
-}
-
-const fieldClass =
-  "w-full rounded-lg border border-divider bg-navy px-4 py-3 text-sm text-offwhite placeholder:text-muted focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal";
-
-function NewCaseForm() {
-  return (
-    <form className="space-y-5">
-      <div>
-        <label htmlFor="caseId" className="mb-1.5 block text-sm font-medium text-offwhite">
-          Case ID
-        </label>
-        <input
-          id="caseId"
-          name="caseId"
-          required
-          className={fieldClass}
-          placeholder="e.g. CASE-2026-0714 (no patient name — case ID only)"
-        />
-        <p className="mt-1 text-xs text-muted">
-          Use an internal case reference, not the patient&rsquo;s name — drafts don&rsquo;t store identifying details yet.
-        </p>
-      </div>
-
-      <div>
-        <label htmlFor="insurer" className="mb-1.5 block text-sm font-medium text-offwhite">
-          Insurer
-        </label>
-        <input
-          id="insurer"
-          name="insurer"
-          required
-          className={fieldClass}
-          placeholder="e.g. Blue Cross Blue Shield"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="medication" className="mb-1.5 block text-sm font-medium text-offwhite">
-          Medication requested
-        </label>
-        <input
-          id="medication"
-          name="medication"
-          required
-          className={fieldClass}
-          placeholder="e.g. Ozempic 1mg, weekly"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="diagnosis" className="mb-1.5 block text-sm font-medium text-offwhite">
-          Diagnosis
-        </label>
-        <input
-          id="diagnosis"
-          name="diagnosis"
-          required
-          className={fieldClass}
-          placeholder="e.g. Type 2 diabetes mellitus, uncontrolled"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="priorTreatments" className="mb-1.5 block text-sm font-medium text-offwhite">
-          Prior treatments tried
-        </label>
-        <textarea
-          id="priorTreatments"
-          name="priorTreatments"
-          required
-          rows={4}
-          className={fieldClass}
-          placeholder="e.g. Metformin 1000mg x6 months — insufficient A1C control. Glipizide added x3 months — still above target."
-        />
-      </div>
-
-      <div>
-        <label htmlFor="notes" className="mb-1.5 block text-sm font-medium text-offwhite">
-          Additional clinical notes (optional)
-        </label>
-        <textarea
-          id="notes"
-          name="notes"
-          rows={3}
-          className={fieldClass}
-          placeholder="Anything else relevant to medical necessity"
-        />
-      </div>
-
-      <Button type="submit" size="lg" className="w-full" disabled>
-        Generate draft — coming in Stage 2
-      </Button>
-      <p className="text-center text-xs text-muted">
-        AI drafting isn&rsquo;t wired up yet. This form is UI-only for now.
-      </p>
-    </form>
   );
 }
