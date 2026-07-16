@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:isolation": "tsx scripts/test-isolation.ts"
   },
   "dependencies": {
     "@11labs/client": "^0.2.0",
