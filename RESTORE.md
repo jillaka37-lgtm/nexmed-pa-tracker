@@ -12,6 +12,9 @@ Symptom: any Supabase call fails with one of:
 - `Error 521: Web server is down` (project is restoring, DNS resolves but origin isn't up yet)
 - `relation "..." does not exist` (misleading — can appear transiently while
   PostgREST's schema cache is still warming up right after a restore)
+- The PA Tracker reminder cron (`vercel.json`, daily) silently produces
+  `{"scanned":0,"notified":0}` or errors out — check the project isn't paused
+  before assuming the scan logic itself is broken
 
 Check status: [supabase.com/dashboard](https://supabase.com/dashboard) →
 select the project → look for "Paused" or "Restoring" banner at the top.
@@ -48,7 +51,12 @@ curl -s -X POST https://nexmed-eta.vercel.app/api/chat \
   -d '{"channel":"web","message":"test"}'
 # Expect a real JSON response with "text", not a 500
 
-# AuthDraft (needs a logged-in admin session — check via the dashboard UI directly)
+# PA Tracker (needs a logged-in admin session — check via the dashboard UI directly)
+
+# PA Tracker reminder cron (needs CRON_SECRET from Vercel env vars)
+curl -s -X GET https://nexmed-eta.vercel.app/api/pa-tracker/cron/reminders \
+  -H "Authorization: Bearer $CRON_SECRET"
+# Expect {"scanned": <n>, "notified": <n>}, not a 401/500
 ```
 
 If it still fails after the dashboard shows "Active," wait another minute —
@@ -75,7 +83,7 @@ start restoring the wrong one:
 - `nexmed` (`hhrasvarsefgiiubvjrw`) — main site (bookings, shop, admin)
 - `nexmed-chatbot` (`kxdhmzzswssqxfexfpot`) — **this is the one
   `NEXT_PUBLIC_SUPABASE_URL` actually points to in production** — chatbot,
-  voice, AuthDraft, and everything else all live here despite the name.
+  voice, PA Tracker, and everything else all live here despite the name.
   Both projects currently show `INACTIVE`/pausable on the free tier — check
   both if something's down and you're not sure which one broke.
 

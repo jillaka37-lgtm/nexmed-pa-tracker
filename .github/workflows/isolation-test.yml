@@ -1,4 +1,4 @@
-name: AuthDraft isolation test
+name: PA Tracker isolation test
 
 on:
   push:

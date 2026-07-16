@@ -8,7 +8,7 @@ const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "";
 const resend = apiKey ? new Resend(apiKey) : null;
 
 /** Wraps content in NexMed-branded dark email markup. */
-function shell(title: string, body: string) {
+export function shell(title: string, body: string) {
   return `
   <div style="background:#0A1628;padding:32px;font-family:Inter,Arial,sans-serif;color:#E8EDF5">
     <div style="max-width:560px;margin:0 auto;background:#0D1A2D;border:1px solid #1A3050;border-radius:12px;overflow:hidden">
@@ -26,6 +26,10 @@ function shell(title: string, body: string) {
       </div>
     </div>
   </div>`;
+}
+
+export async function sendEmail(to: string, subject: string, html: string) {
+  return send(to, subject, html);
 }
 
 async function send(to: string, subject: string, html: string) {
