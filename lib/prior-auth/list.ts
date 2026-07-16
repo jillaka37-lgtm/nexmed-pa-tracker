@@ -9,11 +9,12 @@ export type DraftListItem = {
   createdAt: string;
 };
 
-export async function listDrafts(): Promise<DraftListItem[]> {
+export async function listDrafts(userId: string): Promise<DraftListItem[]> {
   const admin = createAdminClient();
   const { data, error } = await admin
     .from("prior_auth_drafts")
     .select("id, case_id, insurer, medication, status, created_at")
+    .eq("created_by", userId)
     .order("created_at", { ascending: false })
     .limit(100);
 

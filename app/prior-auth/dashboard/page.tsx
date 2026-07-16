@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { isAdmin } from "@/lib/auth";
+import { getUser, isAdmin } from "@/lib/auth";
 import { hasSupabaseEnv } from "@/lib/supabase/env";
 import { listDrafts } from "@/lib/prior-auth/list";
+import { getViewCounts } from "@/lib/prior-auth/views";
 import { Button } from "@/components/ui/button";
 import { CopyLinkButton } from "./CopyLinkButton";
 
@@ -19,7 +20,9 @@ export default async function PriorAuthDashboardPage() {
   if (!hasSupabaseEnv) redirect("/login?redirect=/prior-auth/dashboard");
   if (!(await isAdmin())) redirect("/login?redirect=/prior-auth/dashboard");
 
-  const drafts = await listDrafts();
+  const user = await getUser();
+  const drafts = await listDrafts(user!.id);
+  const viewCounts = await getViewCounts(drafts.map((d) => d.id));
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
@@ -53,6 +56,7 @@ export default async function PriorAuthDashboardPage() {
                 <th className="px-4 py-3 font-medium">Insurer</th>
                 <th className="px-4 py-3 font-medium">Medication</th>
                 <th className="px-4 py-3 font-medium">Status</th>
+                <th className="px-4 py-3 font-medium">Views</th>
                 <th className="px-4 py-3 font-medium">Created</th>
                 <th className="px-4 py-3 font-medium"></th>
               </tr>
@@ -74,6 +78,7 @@ export default async function PriorAuthDashboardPage() {
                       {draft.status}
                     </span>
                   </td>
+                  <td className="px-4 py-3 text-muted">{viewCounts[draft.id] ?? 0}</td>
                   <td className="px-4 py-3 text-muted">
                     {new Date(draft.createdAt).toLocaleDateString()}
                   </td>

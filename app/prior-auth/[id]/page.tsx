@@ -1,9 +1,10 @@
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { isAdmin } from "@/lib/auth";
+import { getUser, isAdmin } from "@/lib/auth";
 import { hasSupabaseEnv } from "@/lib/supabase/env";
 import { getDraft } from "@/lib/prior-auth/store";
+import { recordView } from "@/lib/prior-auth/views";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = { title: "Prior Authorization Draft" };
@@ -16,9 +17,12 @@ export default async function DraftPage({
   if (!hasSupabaseEnv) redirect("/login?redirect=/prior-auth");
   if (!(await isAdmin())) redirect("/login?redirect=/prior-auth");
 
+  const user = await getUser();
   const { id } = await params;
-  const draft = await getDraft(id);
+  const draft = await getDraft(id, user!.id);
   if (!draft) notFound();
+
+  await recordView(id);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">

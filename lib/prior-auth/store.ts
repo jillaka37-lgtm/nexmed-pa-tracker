@@ -38,7 +38,9 @@ export async function saveDraft(
   return data.id;
 }
 
-export async function getDraft(id: string): Promise<PriorAuthDraft | null> {
+/** Only returns the draft if it belongs to `userId` — enforces per-creator
+ * isolation at the application layer, independent of the DB RLS policy. */
+export async function getDraft(id: string, userId: string): Promise<PriorAuthDraft | null> {
   const admin = createAdminClient();
   const { data, error } = await admin
     .from("prior_auth_drafts")
@@ -46,6 +48,7 @@ export async function getDraft(id: string): Promise<PriorAuthDraft | null> {
       "id, case_id, insurer, medication, diagnosis, prior_treatments, notes, letter_body, medical_necessity_summary, prior_treatment_summary, missing_info_warnings, status, created_at",
     )
     .eq("id", id)
+    .eq("created_by", userId)
     .maybeSingle();
 
   if (error || !data) return null;
