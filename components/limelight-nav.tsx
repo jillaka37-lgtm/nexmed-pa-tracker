@@ -14,11 +14,11 @@ const baseNavItems = [
   { href: "/contact", label: "Contact" },
 ];
 
-export function LimelightNav({ isAdmin = false }: { isAdmin?: boolean }) {
+export function LimelightNav() {
   const pathname = usePathname();
-  const navItems = isAdmin
-    ? [{ href: "/pa-tracker", label: "Dashboard" }, ...baseNavItems]
-    : baseNavItems;
+  // Always visible, even logged out — /pa-tracker itself redirects to
+  // /login (with a return path back to /pa-tracker) if not signed in.
+  const navItems = [{ href: "/pa-tracker", label: "Dashboard" }, ...baseNavItems];
   const activeIndex = navItems.findIndex((item) =>
     item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
   );

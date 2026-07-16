@@ -24,7 +24,7 @@ export async function SiteHeader() {
         <Logo />
 
         {/* Desktop nav */}
-        <LimelightNav isAdmin={profile?.role === "admin"} />
+        <LimelightNav />
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-3 md:flex">

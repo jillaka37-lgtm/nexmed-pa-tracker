@@ -85,6 +85,7 @@ export function MobileMenu({
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.15em] text-teal">Explore</p>
             <ul className="space-y-1">
               {[
+                { href: "/pa-tracker", label: "Dashboard" },
                 { href: "/shop", label: "Shop" },
                 { href: "/refill", label: "Refill prescription" },
                 { href: "/medication-info", label: "Medication info" },
@@ -114,18 +115,11 @@ export function MobileMenu({
               {isLoggedIn ? (
                 <>
                   {isAdmin && (
-                    <>
-                      <li>
-                        <Link href="/admin" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
-                          Admin panel
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/pa-tracker" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
-                          PA Tracker
-                        </Link>
-                      </li>
-                    </>
+                    <li>
+                      <Link href="/admin" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
+                        Admin panel
+                      </Link>
+                    </li>
                   )}
                   <li>
                     <Link href="/dashboard" className="block py-2.5 text-base font-medium text-offwhite/80 border-b border-divider/40 hover:text-teal transition-colors">
