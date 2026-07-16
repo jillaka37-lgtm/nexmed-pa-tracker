@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
+import { MedicationSearch } from "@/components/medication-search";
 import { medicationSafety, medicationCategories } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -53,6 +54,17 @@ export default function MedicationInfoPage() {
           </ButtonLink>
         </div>
       </header>
+
+      {/* Medication search */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold">Look up a medication</h2>
+        <p className="mt-2 max-w-2xl text-muted">
+          Search a medication by name or brand to see what it&rsquo;s used for, typical dosage, side effects, and warnings.
+        </p>
+        <div className="mt-6">
+          <MedicationSearch />
+        </div>
+      </section>
 
       {/* Safety basics */}
       <section className="mt-16">
