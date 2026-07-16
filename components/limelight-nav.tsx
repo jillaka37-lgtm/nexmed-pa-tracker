@@ -17,7 +17,7 @@ const baseNavItems = [
 export function LimelightNav({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
   const navItems = isAdmin
-    ? [{ href: "/pa-tracker", label: "PA Tracker" }, ...baseNavItems]
+    ? [{ href: "/pa-tracker/dashboard", label: "Dashboard" }, ...baseNavItems]
     : baseNavItems;
   const activeIndex = navItems.findIndex((item) =>
     item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
