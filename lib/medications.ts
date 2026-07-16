@@ -398,6 +398,33 @@ export const medications: Medication[] = [
     sideEffects: "Nausea, vomiting, headache.",
     warnings: "Prescription only. Most effective when started within 48 hours of symptom onset. Take with food to reduce nausea.",
   },
+  {
+    name: "Bictegravir/Emtricitabine/Tenofovir alafenamide",
+    aliases: ["Biktarvy"],
+    category: "HIV & antiviral",
+    uses: "Prescription complete single-tablet regimen (integrase inhibitor + two nucleoside analogs) used alone to treat HIV.",
+    typicalDosage: "As prescribed — one tablet once daily, with or without food.",
+    sideEffects: "Nausea, diarrhea, headache.",
+    warnings: "Prescription only. A complete regimen in one pill — don't combine with other HIV medications unless directed. Missed doses can allow resistance to develop; take consistently at the same time each day.",
+  },
+  {
+    name: "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir alafenamide",
+    aliases: ["Genvoya"],
+    category: "HIV & antiviral",
+    uses: "Prescription complete single-tablet regimen used alone to treat HIV.",
+    typicalDosage: "As prescribed — one tablet once daily with food.",
+    sideEffects: "Nausea, diarrhea, headache, mild kidney function changes.",
+    warnings: "Prescription only. Must be taken with food for proper absorption. Many drug interactions (the cobicistat component affects how other drugs are processed) — always disclose all medications to your provider.",
+  },
+  {
+    name: "Emtricitabine/Tenofovir alafenamide",
+    aliases: ["Descovy"],
+    category: "HIV & antiviral",
+    uses: "Prescription combination used as part of HIV treatment regimens and for PrEP (pre-exposure prophylaxis) in some individuals.",
+    typicalDosage: "As prescribed — typically one tablet once daily.",
+    sideEffects: "Nausea, headache, mild weight gain.",
+    warnings: "Prescription only. For PrEP, consistent daily use and regular follow-up testing are essential for effectiveness.",
+  },
 
   // --- Blood pressure (additional) ---
   {
@@ -464,6 +491,24 @@ export const medications: Medication[] = [
     typicalDosage: "As prescribed — often once or twice daily, individualized to the person.",
     sideEffects: "Low blood sugar, injection site reactions, weight gain.",
     warnings: "Prescription only. Cloudy suspension — gently roll (don't shake) before use to mix evenly.",
+  },
+  {
+    name: "Empagliflozin",
+    aliases: ["Jardiance"],
+    category: "Diabetes care",
+    uses: "Prescription SGLT2 inhibitor that lowers blood sugar in type 2 diabetes by helping the kidneys remove excess sugar through urine; also used to reduce heart failure and kidney disease risk.",
+    typicalDosage: "As prescribed — commonly 10mg once daily, sometimes increased to 25mg.",
+    sideEffects: "Increased urination, genital yeast infections, dehydration.",
+    warnings: "Prescription only. Drink enough water to avoid dehydration. Rare but serious risk of a dangerous blood condition (ketoacidosis) even with normal blood sugar — seek care for unusual nausea, vomiting, or stomach pain.",
+  },
+  {
+    name: "Sitagliptin",
+    aliases: ["Januvia"],
+    category: "Diabetes care",
+    uses: "Prescription DPP-4 inhibitor that helps lower blood sugar in type 2 diabetes.",
+    typicalDosage: "As prescribed — commonly 100mg once daily.",
+    sideEffects: "Headache, mild upper respiratory symptoms, joint pain (uncommon).",
+    warnings: "Prescription only. Generally well tolerated with low risk of low blood sugar on its own, but tell your doctor about any severe joint pain or signs of pancreatitis (severe stomach pain).",
   },
 
   // --- Other common categories ---
