@@ -24,21 +24,16 @@ export async function SiteHeader() {
         <Logo />
 
         {/* Desktop nav */}
-        <LimelightNav />
+        <LimelightNav isAdmin={profile?.role === "admin"} />
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-3 md:flex">
           {profile ? (
             <>
               {profile.role === "admin" && (
-                <>
-                  <Link href="/admin" className="text-sm font-medium text-gold transition-colors hover:text-teal">
-                    Admin
-                  </Link>
-                  <Link href="/pa-tracker" className="text-sm font-medium text-gold transition-colors hover:text-teal">
-                    PA Tracker
-                  </Link>
-                </>
+                <Link href="/admin" className="text-sm font-medium text-gold transition-colors hover:text-teal">
+                  Admin
+                </Link>
               )}
               <Link href="/dashboard" className="text-sm font-medium text-muted transition-colors hover:text-teal">
                 Dashboard

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLayoutEffect, useRef, useState } from "react";
 
-const navItems = [
+const baseNavItems = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
   { href: "/refill", label: "Refill" },
@@ -14,8 +14,11 @@ const navItems = [
   { href: "/contact", label: "Contact" },
 ];
 
-export function LimelightNav() {
+export function LimelightNav({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
+  const navItems = isAdmin
+    ? [{ href: "/pa-tracker", label: "PA Tracker" }, ...baseNavItems]
+    : baseNavItems;
   const activeIndex = navItems.findIndex((item) =>
     item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
   );
