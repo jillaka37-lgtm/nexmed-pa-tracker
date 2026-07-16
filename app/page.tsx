@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { getActiveServices } from "@/lib/services";
+import { getProfile } from "@/lib/auth";
 import { formatPrice } from "@/lib/format";
 import { InfiniteSlider } from "@/components/infinite-slider";
 import {
@@ -76,6 +77,8 @@ const stats = [
 export default async function HomePage() {
   const services = await getActiveServices();
   const featured = services[0];
+  const profile = await getProfile();
+  const isAdmin = profile?.role === "admin";
 
   return (
     <>
@@ -124,6 +127,14 @@ export default async function HomePage() {
             <p className="mt-4 font-serif text-sm italic text-sky/80">
               &ldquo;{TAGLINE}&rdquo;
             </p>
+
+            {isAdmin && (
+              <div className="mt-6">
+                <ButtonLink href="/pa-tracker" size="lg" className="shadow-[0_0_24px_rgba(212,175,55,0.35)]">
+                  Dashboard
+                </ButtonLink>
+              </div>
+            )}
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <ButtonLink href="/book" size="lg">
