@@ -31,9 +31,14 @@ export async function SiteHeader() {
           {profile ? (
             <>
               {profile.role === "admin" && (
-                <Link href="/admin" className="text-sm font-medium text-gold transition-colors hover:text-teal">
-                  Admin
-                </Link>
+                <>
+                  <Link href="/admin" className="text-sm font-medium text-gold transition-colors hover:text-teal">
+                    Admin
+                  </Link>
+                  <Link href="/pa-tracker" className="text-sm font-medium text-gold transition-colors hover:text-teal">
+                    PA Tracker
+                  </Link>
+                </>
               )}
               <Link href="/dashboard" className="text-sm font-medium text-muted transition-colors hover:text-teal">
                 Dashboard
