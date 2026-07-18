@@ -23,7 +23,7 @@ const GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "CRM — Sales",
+    label: "CRM Sales",
     items: [
       { href: "/crm", label: "Leads", exact: true },
       { href: "/crm/contacts", label: "Contacts" },
@@ -32,7 +32,7 @@ const GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "CRM — Care Coordination",
+    label: "CRM Care Coordination",
     items: [
       { href: "/crm/patients", label: "Patients" },
       { href: "/crm/prescribers", label: "Prescribers" },
