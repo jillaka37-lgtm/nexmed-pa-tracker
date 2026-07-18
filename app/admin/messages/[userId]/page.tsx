@@ -36,7 +36,7 @@ export default async function AdminMessageThreadPage({ params }: { params: Promi
   const rows = (messages ?? []) as Message[];
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="max-w-3xl">
       <Link href="/admin/messages" className="text-sm text-teal hover:underline">← All conversations</Link>
 
       <h1 className="mt-4 mb-8 font-serif text-3xl font-bold text-offwhite">

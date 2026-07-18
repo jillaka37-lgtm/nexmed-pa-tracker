@@ -1,43 +1,28 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { isAdmin } from "@/lib/auth";
-import { hasSupabaseEnv } from "@/lib/supabase/env";
 import { listLeads } from "@/lib/crm/leads";
 import { listOpenTasks } from "@/lib/crm/activities";
 import { LeadRow } from "./LeadRow";
 
-export const metadata: Metadata = { title: "CRM" };
+export const metadata: Metadata = { title: "CRM · Leads" };
 
 export default async function CrmPage() {
-  if (!hasSupabaseEnv) redirect("/login?redirect=/crm");
-  if (!(await isAdmin())) redirect("/login?redirect=/crm");
-
   const [leads, tasks] = await Promise.all([listLeads(), listOpenTasks()]);
   const openLeads = leads.filter((l) => !l.contactId);
   // eslint-disable-next-line react-hooks/purity -- server component, computed once per request
   const now = Date.now();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-teal">Staff tool</p>
-          <h1 className="mt-2 font-serif text-3xl font-bold text-offwhite sm:text-4xl">CRM</h1>
-          <p className="mt-3 max-w-2xl text-muted">
-            Inbound leads from the contact form and chatbot, unified in one place. Convert a lead into a
-            contact to start tracking deals and follow-ups.
-          </p>
-        </div>
-        <div className="flex gap-4 text-sm">
-          <Link href="/crm/contacts" className="text-teal hover:underline">Contacts →</Link>
-          <Link href="/crm/companies" className="text-teal hover:underline">Companies →</Link>
-          <Link href="/crm/deals" className="text-teal hover:underline">Deals →</Link>
-        </div>
-      </div>
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-wide text-teal">Sales CRM</p>
+      <h1 className="mt-2 font-serif text-3xl font-bold text-offwhite sm:text-4xl">Leads</h1>
+      <p className="mt-3 max-w-2xl text-muted">
+        Inbound leads from the contact form and chatbot, unified in one place. Convert a lead into a
+        contact to start tracking deals and follow-ups.
+      </p>
 
       {tasks.length > 0 && (
-        <div className="mb-10 rounded-2xl border border-divider bg-card p-6">
+        <div className="mb-10 mt-8 rounded-2xl border border-divider bg-card p-6">
           <h2 className="mb-4 text-lg font-semibold text-offwhite">Open tasks</h2>
           <ul className="space-y-2 text-sm">
             {tasks.map((t) => {
@@ -64,7 +49,7 @@ export default async function CrmPage() {
         </div>
       )}
 
-      <h2 className="mb-4 text-lg font-semibold text-offwhite">
+      <h2 className="mb-4 mt-8 text-lg font-semibold text-offwhite">
         Leads {openLeads.length > 0 && <span className="text-muted">({openLeads.length} open)</span>}
       </h2>
       {leads.length === 0 ? (

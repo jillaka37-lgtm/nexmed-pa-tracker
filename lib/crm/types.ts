@@ -72,3 +72,73 @@ export type Activity = {
   createdBy: string | null;
   createdAt: string;
 };
+
+// ---------------------------------------------------------------------------
+// Care-coordination CRM — additive alongside the sales CRM above.
+// ---------------------------------------------------------------------------
+
+export type Patient = {
+  id: string; // auth.users id
+  fullName: string | null;
+  email: string | null;
+  phone: string | null;
+};
+
+export type PatientProfile = {
+  userId: string;
+  dateOfBirth: string | null;
+  allergies: string | null;
+  conditions: string | null;
+  preferredPharmacy: string | null;
+  insuranceProvider: string | null;
+  insuranceMemberId: string | null;
+  notes: string | null;
+  updatedAt: string;
+};
+
+export type Prescriber = {
+  id: string;
+  fullName: string;
+  specialty: string | null;
+  clinicName: string | null;
+  phone: string | null;
+  email: string | null;
+  fax: string | null;
+  notes: string | null;
+  createdAt: string;
+};
+
+export type InsuranceCompany = {
+  id: string;
+  name: string;
+  phone: string | null;
+  claimsEmail: string | null;
+  notes: string | null;
+  createdAt: string;
+};
+
+export type PharmacyContact = {
+  id: string;
+  fullName: string;
+  roleTitle: string | null;
+  organization: string | null;
+  phone: string | null;
+  email: string | null;
+  notes: string | null;
+  createdAt: string;
+};
+
+export type PatientActivityType = "note" | "task" | "reminder";
+
+export type PatientActivity = {
+  id: string;
+  userId: string;
+  type: PatientActivityType;
+  title: string;
+  body: string | null;
+  dueAt: string | null;
+  remindAt: string | null;
+  doneAt: string | null;
+  createdBy: string | null;
+  createdAt: string;
+};

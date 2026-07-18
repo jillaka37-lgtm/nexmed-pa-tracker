@@ -23,7 +23,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
   const [deals, timeline] = await Promise.all([listDealsForContact(id), listContactTimeline(id)]);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="max-w-4xl">
       <Link href="/crm/contacts" className="text-sm text-teal hover:underline">← All contacts</Link>
 
       <div className="mt-4 mb-10 rounded-2xl border border-divider bg-card p-6">

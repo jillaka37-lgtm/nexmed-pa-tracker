@@ -136,7 +136,7 @@ export default async function AdminPage() {
   );
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
+    <div className="max-w-4xl">
       <h1 className="text-3xl font-bold">Admin</h1>
       <p className="mt-2 text-muted">
         Manage bookings, availability, and services.

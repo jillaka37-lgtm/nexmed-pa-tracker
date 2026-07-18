@@ -163,3 +163,23 @@ export async function saveService(
   revalidatePath("/services");
   return { ok: true, message: "Service saved." };
 }
+
+export async function setRefillStatus(
+  _prev: AdminState,
+  formData: FormData,
+): Promise<AdminState> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, error: denied };
+
+  const id = String(formData.get("id") ?? "");
+  const status = String(formData.get("status") ?? "");
+  if (!id || !status) return { ok: false, error: "Missing refill or status." };
+
+  const admin = createAdminClient();
+  const { error } = await admin.from("prescription_refills").update({ status }).eq("id", id);
+  if (error) return { ok: false, error: "Couldn't update status." };
+
+  revalidatePath("/admin/refills");
+  revalidatePath("/admin/medications");
+  return { ok: true };
+}

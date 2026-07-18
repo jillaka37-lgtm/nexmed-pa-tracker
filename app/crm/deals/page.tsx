@@ -15,8 +15,9 @@ export default async function DealsPage() {
   const [deals, stages] = await Promise.all([listDeals(), listDealStages()]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="mb-2 font-serif text-3xl font-bold text-offwhite">Deals</h1>
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-wide text-teal">Sales CRM</p>
+      <h1 className="mb-2 mt-2 font-serif text-3xl font-bold text-offwhite">Deals</h1>
       <p className="mb-8 text-muted">Move a deal to a new stage from its card. Add new deals from a contact&apos;s page.</p>
 
       <div className="grid grid-cols-1 gap-4 overflow-x-auto sm:grid-cols-2 lg:grid-cols-6">

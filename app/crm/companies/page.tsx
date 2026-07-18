@@ -14,8 +14,9 @@ export default async function CompaniesPage() {
   const companies = await listCompanies();
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="mb-2 font-serif text-3xl font-bold text-offwhite">Companies</h1>
+    <div className="max-w-4xl">
+      <p className="text-sm font-semibold uppercase tracking-wide text-teal">Sales CRM</p>
+      <h1 className="mb-2 mt-2 font-serif text-3xl font-bold text-offwhite">Companies</h1>
       <p className="mb-8 text-muted">Optional — most NexMed contacts are individuals, but corporate or insurer accounts can be grouped here.</p>
 
       <div className="mb-10 rounded-2xl border border-divider bg-card p-6">
