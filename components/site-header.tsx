@@ -6,7 +6,6 @@ import { MobileMenu } from "./mobile-menu";
 import { LimelightNav } from "./limelight-nav";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
   { href: "/refill", label: "Refill" },
   { href: "/medication-info", label: "Medication info" },

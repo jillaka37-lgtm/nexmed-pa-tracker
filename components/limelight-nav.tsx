@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useLayoutEffect, useRef, useState } from "react";
 
 const baseNavItems = [
-  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
   { href: "/refill", label: "Refill" },
   { href: "/medication-info", label: "Medication" },
