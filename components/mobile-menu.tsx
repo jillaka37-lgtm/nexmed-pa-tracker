@@ -85,7 +85,7 @@ export function MobileMenu({
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.15em] text-teal">Explore</p>
             <ul className="space-y-1">
               {[
-                { href: "/pa-tracker", label: "Dashboard" },
+                { href: "/dashboard", label: "Dashboard" },
                 { href: "/shop", label: "Shop" },
                 { href: "/refill", label: "Refill prescription" },
                 { href: "/medication-info", label: "Medication info" },
@@ -113,32 +113,13 @@ export function MobileMenu({
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.15em] text-teal">Account</p>
             <ul className="space-y-1">
               {isLoggedIn ? (
-                <>
-                  {isAdmin && (
-                    <>
-                      <li>
-                        <Link href="/crm" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
-                          CRM
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/admin/messages" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
-                          Messages
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/admin" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
-                          Admin panel
-                        </Link>
-                      </li>
-                    </>
-                  )}
-                  <li>
-                    <Link href="/dashboard" className="block py-2.5 text-base font-medium text-offwhite/80 border-b border-divider/40 hover:text-teal transition-colors">
-                      My bookings
-                    </Link>
-                  </li>
-                </>
+                // Dashboard is already in Explore above and covers both
+                // patient and staff views — nothing else needed here.
+                <li>
+                  <Link href="/dashboard" className={`block py-2.5 text-base font-medium border-b border-divider/40 hover:text-teal transition-colors ${isAdmin ? "text-gold" : "text-offwhite/80"}`}>
+                    {isAdmin ? "Staff console" : "My account"}
+                  </Link>
+                </li>
               ) : (
                 <>
                   <li>

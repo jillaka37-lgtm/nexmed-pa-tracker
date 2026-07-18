@@ -29,24 +29,18 @@ export async function SiteHeader() {
         {/* Desktop actions */}
         <div className="hidden items-center gap-3 md:flex">
           {profile ? (
-            <>
-              {profile.role === "admin" && (
-                <>
-                  <Link href="/crm" className="text-sm font-medium text-gold transition-colors hover:text-teal">
-                    CRM
-                  </Link>
-                  <Link href="/admin/messages" className="text-sm font-medium text-gold transition-colors hover:text-teal">
-                    Messages
-                  </Link>
-                  <Link href="/admin" className="text-sm font-medium text-gold transition-colors hover:text-teal">
-                    Admin
-                  </Link>
-                </>
-              )}
-              <Link href="/dashboard" className="text-sm font-medium text-muted transition-colors hover:text-teal">
-                Dashboard
-              </Link>
-            </>
+            // One dashboard link for everyone — /dashboard itself is the
+            // unified entry point (patient view or staff Operations+CRM
+            // console, depending on role). No separate CRM/Messages/Admin
+            // links here; they live inside the dashboard's own sidebar.
+            <Link
+              href="/dashboard"
+              className={`text-sm font-medium transition-colors hover:text-teal ${
+                profile.role === "admin" ? "text-gold" : "text-muted"
+              }`}
+            >
+              Dashboard
+            </Link>
           ) : (
             <Link href="/login" className="text-sm font-medium text-muted transition-colors hover:text-teal">
               Sign in

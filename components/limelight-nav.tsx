@@ -16,9 +16,11 @@ const baseNavItems = [
 
 export function LimelightNav() {
   const pathname = usePathname();
-  // Always visible, even logged out — /pa-tracker itself redirects to
-  // /login (with a return path back to /pa-tracker) if not signed in.
-  const navItems = [{ href: "/pa-tracker", label: "Dashboard" }, ...baseNavItems];
+  // Always visible, even logged out — /dashboard itself redirects to
+  // /login (with a return path back to /dashboard) if not signed in. One
+  // entry point for everyone: patients land on their account view, staff
+  // land on the unified Operations + CRM console.
+  const navItems = [{ href: "/dashboard", label: "Dashboard" }, ...baseNavItems];
   const activeIndex = navItems.findIndex((item) =>
     item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
   );
