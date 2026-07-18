@@ -115,11 +115,23 @@ export function MobileMenu({
               {isLoggedIn ? (
                 <>
                   {isAdmin && (
-                    <li>
-                      <Link href="/admin" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
-                        Admin panel
-                      </Link>
-                    </li>
+                    <>
+                      <li>
+                        <Link href="/crm" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
+                          CRM
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/admin/messages" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
+                          Messages
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/admin" className="block py-2.5 text-base font-medium text-gold border-b border-divider/40 hover:text-teal transition-colors">
+                          Admin panel
+                        </Link>
+                      </li>
+                    </>
                   )}
                   <li>
                     <Link href="/dashboard" className="block py-2.5 text-base font-medium text-offwhite/80 border-b border-divider/40 hover:text-teal transition-colors">

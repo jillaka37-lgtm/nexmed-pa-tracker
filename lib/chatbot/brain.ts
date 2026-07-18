@@ -120,7 +120,11 @@ export async function runBrain(input: {
   const start = Date.now();
 
   const { text, usage } = await generateText({
-    model: openrouter("google/gemini-2.5-flash"),
+    // .chat() forces the Chat Completions endpoint. The bare openrouter(id)
+    // call defaults to @ai-sdk/openai v3's Responses API shape, which
+    // OpenRouter's compatibility layer mishandles for multi-turn message
+    // arrays (worked for single-message calls, 400'd once history existed).
+    model: openrouter.chat("google/gemini-2.5-flash"),
     system: buildSystemPrompt(ragContext),
     messages: buildMessages(history, input.userMessage),
     maxOutputTokens: maxTokens,

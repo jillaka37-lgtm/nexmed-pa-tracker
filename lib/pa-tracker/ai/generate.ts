@@ -52,7 +52,7 @@ async function retryObject<T>(schema: z.ZodType<T>, prompt: string): Promise<T> 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
       const { object } = await generateObject({
-        model: openrouter(MODEL),
+        model: openrouter.chat(MODEL),
         schema,
         prompt,
         maxOutputTokens: 1000,
@@ -74,7 +74,7 @@ async function retryText(prompt: string): Promise<string> {
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
       const { text } = await generateText({
-        model: openrouter(MODEL),
+        model: openrouter.chat(MODEL),
         prompt,
         maxOutputTokens: 800,
       });

@@ -2,6 +2,7 @@ import { NextResponse, after } from "next/server";
 import { runBrain } from "@/lib/chatbot/brain";
 import { getOrCreateSession } from "@/lib/chatbot/memory";
 import { judgeResponse } from "@/lib/chatbot/judge";
+import { captureLead } from "@/lib/chatbot/tools/lead";
 import { Resend } from "resend";
 
 export const maxDuration = 60;
@@ -32,6 +33,10 @@ export async function POST(request: Request) {
   try {
     const { text, liveAgentRequested, contactInfo, messageId, ragContext } = await runBrain({ sessionId, userMessage: message, channel });
     const isLiveAgent = liveAgentRequested || userWantsAgent;
+
+    if (contactInfo?.name && contactInfo?.email) {
+      await captureLead(sessionId, contactInfo);
+    }
 
     if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== "re_xxx") {
       const resend = new Resend(process.env.RESEND_API_KEY);
