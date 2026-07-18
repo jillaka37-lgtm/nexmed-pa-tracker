@@ -1,0 +1,16 @@
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/pain-relief-500.jpg' where slug = 'pain-relief-500';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/allergy-relief.jpg' where slug = 'allergy-relief';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/vitamin-d3.jpg' where slug = 'vitamin-d3';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/cold-flu-relief.jpg' where slug = 'cold-flu-relief';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/digital-thermometer.jpg' where slug = 'digital-thermometer';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/hand-sanitizer.jpg' where slug = 'hand-sanitizer';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/omega-3-fish-oil.jpg' where slug = 'omega-3-fish-oil';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/vitamin-c-1000.jpg' where slug = 'vitamin-c-1000';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/multivitamin-daily.jpg' where slug = 'multivitamin-daily';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/blood-pressure-monitor.jpg' where slug = 'blood-pressure-monitor';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/pulse-oximeter.jpg' where slug = 'pulse-oximeter';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/first-aid-kit.jpg' where slug = 'first-aid-kit';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/sunscreen-spf50.jpg' where slug = 'sunscreen-spf50';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/antacid-tablets.jpg' where slug = 'antacid-tablets';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/probiotic-capsules.jpg' where slug = 'probiotic-capsules';
+update public.products set image_url = 'https://kxdhmzzswssqxfexfpot.supabase.co/storage/v1/object/public/product-images/sleep-aid.jpg' where slug = 'sleep-aid';
