@@ -38,9 +38,7 @@ const GROUPS: NavGroup[] = [
       { href: "/crm/insurance", label: "Insurance Companies" },
       { href: "/crm/pharmacy-contacts", label: "Pharmacy Contacts" },
       { href: "/crm/communications", label: "Communication History" },
-      { href: "/crm/tasks", label: "Tasks & Follow-ups" },
-      { href: "/crm/notes", label: "Notes" },
-      { href: "/crm/reminders", label: "Reminders" },
+      { href: "/crm/activity", label: "Activity" },
     ],
   },
 ];

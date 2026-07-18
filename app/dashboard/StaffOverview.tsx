@@ -43,7 +43,7 @@ export async function StaffOverview() {
     { label: "Open refill requests", value: String(openRefills ?? 0), href: "/admin/refills" },
     { label: "Unread patient messages", value: String(unreadStaffMessages ?? 0), href: "/admin/messages" },
     { label: "New leads", value: String(newLeads ?? 0), href: "/crm" },
-    { label: "Open tasks", value: String(openTasks ?? 0), href: "/crm/tasks" },
+    { label: "Open tasks", value: String(openTasks ?? 0), href: "/crm/activity?type=task" },
   ];
 
   return (

@@ -28,20 +28,10 @@ export async function SiteHeader() {
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-3 md:flex">
-          {profile ? (
-            // One dashboard link for everyone — /dashboard itself is the
-            // unified entry point (patient view or staff Operations+CRM
-            // console, depending on role). No separate CRM/Messages/Admin
-            // links here; they live inside the dashboard's own sidebar.
-            <Link
-              href="/dashboard"
-              className={`text-sm font-medium transition-colors hover:text-teal ${
-                profile.role === "admin" ? "text-gold" : "text-muted"
-              }`}
-            >
-              Dashboard
-            </Link>
-          ) : (
+          {/* Dashboard already lives in the main nav (LimelightNav) —
+              no second copy here. Only show something distinct: sign-in
+              for logged-out visitors. */}
+          {!profile && (
             <Link href="/login" className="text-sm font-medium text-muted transition-colors hover:text-teal">
               Sign in
             </Link>
@@ -52,11 +42,7 @@ export async function SiteHeader() {
         {/* Mobile: cart + hamburger */}
         <div className="flex items-center gap-2 md:hidden">
           <CartLink />
-          <MobileMenu
-            links={navLinks}
-            isLoggedIn={!!profile}
-            isAdmin={profile?.role === "admin"}
-          />
+          <MobileMenu links={navLinks} isLoggedIn={!!profile} />
         </div>
       </div>
     </header>

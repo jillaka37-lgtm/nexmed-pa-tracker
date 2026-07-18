@@ -10,11 +10,9 @@ export function MobileMenu({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   links: _links,
   isLoggedIn,
-  isAdmin,
 }: {
   links: NavLink[];
   isLoggedIn: boolean;
-  isAdmin: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -114,11 +112,13 @@ export function MobileMenu({
             <ul className="space-y-1">
               {isLoggedIn ? (
                 // Dashboard is already in Explore above and covers both
-                // patient and staff views — nothing else needed here.
+                // patient and staff views — no second copy here.
                 <li>
-                  <Link href="/dashboard" className={`block py-2.5 text-base font-medium border-b border-divider/40 hover:text-teal transition-colors ${isAdmin ? "text-gold" : "text-offwhite/80"}`}>
-                    {isAdmin ? "Staff console" : "My account"}
-                  </Link>
+                  <form action="/auth/signout" method="post">
+                    <button type="submit" className="block w-full py-2.5 text-left text-base font-medium text-offwhite/80 border-b border-divider/40 hover:text-teal transition-colors">
+                      Sign out
+                    </button>
+                  </form>
                 </li>
               ) : (
                 <>

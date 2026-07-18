@@ -118,9 +118,7 @@ export async function createPatientActivityAction(_prev: CrmState, formData: For
   );
   if (!ok) return { ok: false, error: "Couldn't add." };
   revalidatePath(`/crm/patients/${userId}`);
-  revalidatePath("/crm/tasks");
-  revalidatePath("/crm/notes");
-  revalidatePath("/crm/reminders");
+  revalidatePath("/crm/activity");
   return { ok: true, message: "Added." };
 }
 
@@ -132,7 +130,6 @@ export async function completePatientActivityAction(_prev: CrmState, formData: F
   if (!id) return { ok: false, error: "Missing item." };
   const ok = await completePatientActivity(id);
   if (!ok) return { ok: false, error: "Couldn't complete." };
-  revalidatePath("/crm/tasks");
-  revalidatePath("/crm/reminders");
+  revalidatePath("/crm/activity");
   return { ok: true };
 }
