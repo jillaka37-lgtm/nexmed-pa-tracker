@@ -9,6 +9,8 @@ import { listContactTimeline } from "@/lib/crm/activities";
 import { formatCents, STATUS_STYLES } from "@/components/crm/ui";
 import { ActivityForm } from "./ActivityForm";
 import { DealForm } from "./DealForm";
+import { SummarizeChatButton } from "./SummarizeChatButton";
+import { DealNextActionButton } from "./DealNextActionButton";
 
 export const metadata: Metadata = { title: "Contact · CRM" };
 
@@ -42,14 +44,17 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
         {deals.length > 0 && (
           <ul className="mb-4 space-y-2">
             {deals.map((d) => (
-              <li key={d.id} className="flex items-center justify-between rounded-lg border border-divider bg-card px-4 py-3 text-sm">
-                <span className="text-offwhite">{d.title}</span>
-                <span className="flex items-center gap-3">
-                  <span className="text-muted">{formatCents(d.amountCents)}</span>
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[d.stageKey] ?? STATUS_STYLES.open}`}>
-                    {d.stageKey}
+              <li key={d.id} className="rounded-lg border border-divider bg-card px-4 py-3 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-offwhite">{d.title}</span>
+                  <span className="flex items-center gap-3">
+                    <span className="text-muted">{formatCents(d.amountCents)}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[d.stageKey] ?? STATUS_STYLES.open}`}>
+                      {d.stageKey}
+                    </span>
                   </span>
-                </span>
+                </div>
+                {d.status === "open" && <DealNextActionButton dealId={d.id} />}
               </li>
             ))}
           </ul>
@@ -61,7 +66,10 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
       </div>
 
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-offwhite">Timeline</h2>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-offwhite">Timeline</h2>
+          <SummarizeChatButton contactId={id} />
+        </div>
         <div className="mb-6 rounded-2xl border border-divider bg-card p-6">
           <ActivityForm contactId={id} />
         </div>

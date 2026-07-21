@@ -1,6 +1,9 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { Patient, PatientProfile } from "./types";
 
+// Raw Supabase row shape is intentionally untyped here — the function's own
+// return type is what actually enforces field types for every caller.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToProfile(data: Record<string, any>): PatientProfile {
   return {
     userId: data.user_id,

@@ -34,6 +34,9 @@ export type PaCase = {
 const CASE_COLUMNS =
   "id, case_id, insurer, medication, diagnosis, status, created_by, assigned_to, due_at, last_action_at, created_at";
 
+// Raw Supabase row shape is intentionally untyped here — the function's own
+// return type is what actually enforces field types for every caller.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToCase(data: Record<string, any>): PaCase {
   return {
     id: data.id,

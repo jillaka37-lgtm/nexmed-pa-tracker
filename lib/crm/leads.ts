@@ -5,6 +5,9 @@ import type { Lead, LeadStatus } from "./types";
 const LEAD_COLUMNS =
   "id, source, name, email, phone, message, status, contact_id, ai_score, ai_score_rationale, ai_scored_at, created_at";
 
+// Raw Supabase row shape is intentionally untyped here — the function's own
+// return type is what actually enforces field types for every caller.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToLead(data: Record<string, any>): Lead {
   return {
     id: data.id,

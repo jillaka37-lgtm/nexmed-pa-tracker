@@ -14,7 +14,6 @@ export function VoiceMode({ onClose }: Props) {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [error, setError] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const convRef = useRef<any>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sdkRef = useRef<any>(null);
@@ -74,7 +73,7 @@ export function VoiceMode({ onClose }: Props) {
   const label: Record<VoiceStatus, string> = {
     idle: "Tap Start to begin",
     connecting: "Connecting…",
-    listening: "Listening — speak now",
+    listening: "Listening, speak now",
     speaking: "NexMed is speaking…",
   };
 

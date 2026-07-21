@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type NavLink = { href: string; label: string }; // eslint-disable-line @typescript-eslint/no-unused-vars
+type NavLink = { href: string; label: string };
 
 export function MobileMenu({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,8 +18,13 @@ export function MobileMenu({
   const pathname = usePathname();
 
   useEffect(() => {
+    // Genuine sync with an external system (the router's pathname), not
+    // derived state — there's no render-time equivalent of "reset local UI
+    // state when navigation happens elsewhere."
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (open) setOpen(false);
-  }, [pathname, open]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- close-on-navigate only, not on `open` toggling itself
+  }, [pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };

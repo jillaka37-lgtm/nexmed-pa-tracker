@@ -1,6 +1,9 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { Company } from "./types";
 
+// Raw Supabase row shape is intentionally untyped here — the function's own
+// return type is what actually enforces field types for every caller.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToCompany(data: Record<string, any>): Company {
   return {
     id: data.id,
@@ -19,6 +22,7 @@ export async function listCompanies(): Promise<(Company & { contactCount: number
     .select("id, name, industry, phone, notes, created_at, contacts(count), deals(count)")
     .order("name");
   if (error || !data) return [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped join row, same boundary as rowToCompany above
   return data.map((row: any) => ({
     ...rowToCompany(row),
     contactCount: row.contacts?.[0]?.count ?? 0,

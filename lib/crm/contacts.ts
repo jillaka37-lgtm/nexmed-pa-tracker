@@ -3,6 +3,9 @@ import type { Contact } from "./types";
 
 const CONTACT_COLUMNS = "id, company_id, full_name, email, phone, source, notes, created_at";
 
+// Raw Supabase row shape is intentionally untyped here — the function's own
+// return type is what actually enforces field types for every caller.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToContact(data: Record<string, any>): Contact {
   return {
     id: data.id,
@@ -29,6 +32,7 @@ export async function listContacts(search?: string): Promise<(Contact & { compan
   }
   const { data, error } = await query;
   if (error || !data) return [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped join row, same boundary as rowToContact above
   return data.map((row: any) => ({ ...rowToContact(row), companyName: row.companies?.name ?? null }));
 }
 
@@ -40,6 +44,7 @@ export async function getContact(id: string): Promise<(Contact & { companyName: 
     .eq("id", id)
     .maybeSingle();
   if (error || !data) return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped join row, same boundary as rowToContact above
   return { ...rowToContact(data), companyName: (data as any).companies?.name ?? null };
 }
 

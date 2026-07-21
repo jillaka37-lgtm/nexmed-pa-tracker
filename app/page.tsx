@@ -280,7 +280,7 @@ export default async function HomePage() {
           <Reveal className="mb-10 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-blue-200">Explore our pharmacy</p>
             <h2 className="mt-2 text-3xl font-bold sm:text-4xl text-white">Browse our health categories</h2>
-            <p className="mx-auto mt-3 max-w-xl text-blue-100/70">Everything you need, all in one place — from everyday vitamins to prescription support.</p>
+            <p className="mx-auto mt-3 max-w-xl text-blue-100/70">Everything you need, all in one place, from everyday vitamins to prescription support.</p>
           </Reveal>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {[
@@ -414,7 +414,7 @@ export default async function HomePage() {
             const row1 = [
               ...testimonials,
               { name: "Emily K.", role: "New patient", rating: 5, content: "I was nervous about my first consultation but felt so at ease. The pharmacist was warm, patient, and incredibly knowledgeable." },
-              { name: "James T.", role: "Regular customer", rating: 5, content: "Refilling prescriptions has never been easier. Everything online, no waiting in line — this is how it should always be." },
+              { name: "James T.", role: "Regular customer", rating: 5, content: "Refilling prescriptions has never been easier. Everything online, no waiting in line. This is how it should always be." },
               { name: "Linda C.", role: "Senior patient", rating: 5, content: "They took the time to explain every medication clearly. I finally feel in control of my own health." },
             ];
             return (

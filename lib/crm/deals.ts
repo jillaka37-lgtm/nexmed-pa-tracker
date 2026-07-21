@@ -5,6 +5,9 @@ import type { Deal, DealStage } from "./types";
 const DEAL_COLUMNS =
   "id, title, contact_id, company_id, stage_key, status, amount_cents, expected_close, lost_reason, stage_entered_at, created_at, updated_at";
 
+// Raw Supabase row shape is intentionally untyped here — the function's own
+// return type is what actually enforces field types for every caller.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToDeal(data: Record<string, any>): Deal {
   return {
     id: data.id,
@@ -39,7 +42,15 @@ export async function listDeals(): Promise<(Deal & { contactName: string | null 
     .order("created_at", { ascending: false })
     .limit(300);
   if (error || !data) return [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped join row, same boundary as rowToDeal above
   return data.map((row: any) => ({ ...rowToDeal(row), contactName: row.contacts?.full_name ?? null }));
+}
+
+export async function getDeal(id: string): Promise<Deal | null> {
+  const admin = createAdminClient();
+  const { data, error } = await admin.from("deals").select(DEAL_COLUMNS).eq("id", id).maybeSingle();
+  if (error || !data) return null;
+  return rowToDeal(data);
 }
 
 export async function listDealsForContact(contactId: string): Promise<Deal[]> {

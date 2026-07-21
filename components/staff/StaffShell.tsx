@@ -23,6 +23,14 @@ const GROUPS: NavGroup[] = [
     ],
   },
   {
+    label: "AI Studios",
+    items: [
+      { href: "/admin/content-studio", label: "Content Studio" },
+      { href: "/admin/blog-agents", label: "Blog Agents" },
+      { href: "/admin/eval", label: "Eval Dashboard" },
+    ],
+  },
+  {
     label: "CRM Sales",
     items: [
       { href: "/crm", label: "Leads", exact: true },
@@ -77,7 +85,15 @@ export function StaffShell({ greeting, children }: { greeting: string; children:
   }
 
   return (
-    <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-16 sm:px-6 lg:flex-row lg:px-8">
+    <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-16 sm:px-6 lg:flex-row lg:px-8">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://images.pexels.com/photos/8669982/pexels-photo-8669982.jpeg?auto=compress&cs=tinysrgb&w=1600"
+        alt=""
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 bg-navy/90" />
       <aside className="shrink-0 rounded-2xl border border-divider/50 bg-navy/80 p-4 backdrop-blur-md lg:sticky lg:top-20 lg:h-fit lg:w-64">
         <div className="mb-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-teal">Staff console</p>

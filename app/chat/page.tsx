@@ -30,7 +30,7 @@ export default function ChatPage() {
 
       {/* Disclaimer */}
       <p className="text-center text-xs text-gray-400 py-3 px-4">
-        This AI assistant provides general information only — not medical advice. For emergencies, call 911.
+        This AI assistant provides general information only, not medical advice. For emergencies, call 911.
       </p>
     </div>
   );

@@ -21,6 +21,9 @@ export async function logAiCall(input: {
   prompt: string;
   response?: unknown;
   error?: string;
+  inputTokens?: number;
+  outputTokens?: number;
+  costUsd?: number;
 }): Promise<void> {
   const admin = createAdminClient();
   await admin.from("ai_log").insert({
@@ -29,5 +32,8 @@ export async function logAiCall(input: {
     prompt: input.prompt,
     response: input.response ?? null,
     error: input.error ?? null,
+    input_tokens: input.inputTokens ?? null,
+    output_tokens: input.outputTokens ?? null,
+    cost_usd: input.costUsd ?? null,
   });
 }

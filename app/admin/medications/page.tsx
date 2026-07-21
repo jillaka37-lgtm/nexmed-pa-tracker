@@ -30,7 +30,7 @@ export default async function MedicationManagementPage() {
   }
 
   const medications = [...byMedication.entries()]
-    .map(([key, entries]) => ({ name: entries[0].medication_name, entries, patientCount: new Set(entries.map((e) => e.user_id ?? e.full_name)).size }))
+    .map(([, entries]) => ({ name: entries[0].medication_name, entries, patientCount: new Set(entries.map((e) => e.user_id ?? e.full_name)).size }))
     .sort((a, b) => b.entries.length - a.entries.length);
 
   return (

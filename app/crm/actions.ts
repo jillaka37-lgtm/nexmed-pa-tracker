@@ -3,10 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { getUser, isAdmin } from "@/lib/auth";
 import { convertLead, setLeadStatus } from "@/lib/crm/leads";
-import { createContact } from "@/lib/crm/contacts";
+import { createContact, getContact } from "@/lib/crm/contacts";
 import { createCompany } from "@/lib/crm/companies";
-import { createDeal, moveDealStage } from "@/lib/crm/deals";
-import { createActivity, completeTask } from "@/lib/crm/activities";
+import { createDeal, moveDealStage, getDeal } from "@/lib/crm/deals";
+import { createActivity, completeTask, listRecentActivitiesForDeal } from "@/lib/crm/activities";
+import { getChatTranscriptForEmail } from "@/lib/crm/chatHistory";
+import { summarizeChatTranscript, suggestDealNextAction } from "@/lib/crm/ai/generate";
 import type { ActivityType, LeadStatus } from "@/lib/crm/types";
 
 export type CrmState = { ok: boolean; error?: string; message?: string };
@@ -172,4 +174,68 @@ export async function completeTaskAction(_prev: CrmState, formData: FormData): P
   if (!ok) return { ok: false, error: "Couldn't complete task." };
   revalidatePath("/crm");
   return { ok: true };
+}
+
+/** Finds this contact's chatbot conversation (matched by email against
+ * chat_leads) and saves an AI summary as a note activity — appears
+ * directly in the existing timeline, no new table needed. */
+export async function summarizeContactChatAction(_prev: CrmState, formData: FormData): Promise<CrmState> {
+  const auth = await requireAdmin();
+  if ("error" in auth) return { ok: false, error: auth.error };
+
+  const contactId = String(formData.get("contact_id") ?? "");
+  if (!contactId) return { ok: false, error: "Missing contact." };
+
+  const contact = await getContact(contactId);
+  if (!contact) return { ok: false, error: "Contact not found." };
+
+  const transcript = await getChatTranscriptForEmail(contact.email);
+  if (!transcript) return { ok: false, error: "No chatbot conversation found for this contact's email." };
+
+  let summary;
+  try {
+    summary = await summarizeChatTranscript(transcript);
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "AI summary failed." };
+  }
+
+  const bodyLines = [
+    summary.summary,
+    summary.needs.length ? `Needs: ${summary.needs.join("; ")}` : null,
+    summary.concerns.length ? `Concerns: ${summary.concerns.join("; ")}` : null,
+    summary.buyingSignals.length ? `Buying signals: ${summary.buyingSignals.join("; ")}` : null,
+  ].filter(Boolean);
+
+  const ok = await createActivity(
+    { contactId, type: "note", title: "AI: Chatbot conversation summary", body: bodyLines.join("\n") },
+    auth.userId,
+  );
+  if (!ok) return { ok: false, error: "Couldn't save summary." };
+
+  revalidatePath(`/crm/contacts/${contactId}`);
+  return { ok: true, message: "Summary added to timeline." };
+}
+
+/** Ephemeral suggestion, not saved automatically — staff decide whether to
+ * act on it and log their own activity, same human-in-the-loop pattern as
+ * PA Tracker's AI actions. */
+export async function suggestDealNextActionAction(_prev: CrmState, formData: FormData): Promise<CrmState> {
+  const auth = await requireAdmin();
+  if ("error" in auth) return { ok: false, error: auth.error };
+
+  const dealId = String(formData.get("deal_id") ?? "");
+  if (!dealId) return { ok: false, error: "Missing deal." };
+
+  const deal = await getDeal(dealId);
+  if (!deal) return { ok: false, error: "Deal not found." };
+
+  const daysInStage = Math.floor((Date.now() - new Date(deal.stageEnteredAt).getTime()) / 86_400_000);
+  const recentActivities = await listRecentActivitiesForDeal(dealId);
+
+  try {
+    const suggestion = await suggestDealNextAction(deal, daysInStage, recentActivities);
+    return { ok: true, message: `${suggestion.action} — ${suggestion.reasoning}` };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "AI suggestion failed." };
+  }
 }

@@ -5,7 +5,7 @@ import { logAiCall } from "@/lib/audit";
 import { alertError } from "@/lib/alert";
 import type { CaseSummary } from "./generate";
 
-type RunArgs = { caseSummary: CaseSummary; timelineText: string; body: any };
+type RunArgs = { caseSummary: CaseSummary; timelineText: string; body: unknown };
 
 /** Shared plumbing for every AI case-action route: auth + ownership check
  * (via the same getOwnCase isolation used everywhere else in PA Tracker),
@@ -37,7 +37,7 @@ export async function runAiCaseAction<T>(
   const timelineText = events
     .slice()
     .reverse()
-    .map((e: any) => `${e.action}${e.detail ? ": " + JSON.stringify(e.detail) : ""}`)
+    .map((e) => `${e.action}${e.detail ? ": " + JSON.stringify(e.detail) : ""}`)
     .join("\n");
 
   const caseSummary: CaseSummary = {

@@ -1,6 +1,9 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { Activity, ActivityType } from "./types";
 
+// Raw Supabase row shape is intentionally untyped here — the function's own
+// return type is what actually enforces field types for every caller.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToActivity(data: Record<string, any>): Activity {
   return {
     id: data.id,
@@ -23,6 +26,18 @@ export async function listContactTimeline(contactId: string): Promise<Activity[]
     .select("id, contact_id, deal_id, type, title, body, due_at, done_at, created_by, created_at")
     .eq("contact_id", contactId)
     .order("created_at", { ascending: false });
+  if (error || !data) return [];
+  return data.map(rowToActivity);
+}
+
+export async function listRecentActivitiesForDeal(dealId: string, limit = 5): Promise<Activity[]> {
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from("activities")
+    .select("id, contact_id, deal_id, type, title, body, due_at, done_at, created_by, created_at")
+    .eq("deal_id", dealId)
+    .order("created_at", { ascending: false })
+    .limit(limit);
   if (error || !data) return [];
   return data.map(rowToActivity);
 }

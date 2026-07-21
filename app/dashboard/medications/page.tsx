@@ -32,7 +32,7 @@ export default async function MedicationsPage() {
       <div className="mt-8 space-y-3">
         {myMedications.length === 0 ? (
           <div className="rounded-2xl border border-divider bg-surface p-10 text-center">
-            <p className="text-muted">Nothing here yet — medications you request refills for will show up here.</p>
+            <p className="text-muted">Nothing here yet. Medications you request refills for will show up here.</p>
             <ButtonLink href="/refill" size="lg" className="mt-6">Request a refill</ButtonLink>
           </div>
         ) : (

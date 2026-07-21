@@ -16,8 +16,10 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
     const el = ref.current;
     if (!el) return;
 
-    // Respect reduced-motion preference
+    // Respect reduced-motion preference — genuine sync with a browser API
+    // (matchMedia) that only exists client-side, not derived render state.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(true);
       return;
     }

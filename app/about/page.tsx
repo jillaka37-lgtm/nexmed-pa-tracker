@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/button";
-import { ELEVATOR_PITCH, coreValues } from "@/lib/content";
+import { coreValues } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",

@@ -1,0 +1,183 @@
+{
+  "runId": "f0b0b871-33ee-46c4-ae7e-da5e7dcadebe",
+  "summary": {
+    "counts": {
+      "fail": 0,
+      "pass": 2,
+      "partial": 0
+    },
+    "latency": {
+      "avgMs": 3079,
+      "p95Ms": 4674
+    },
+    "byCategory": [
+      {
+        "fail": 0,
+        "pass": 2,
+        "score": 96.25000000000001,
+        "partial": 0,
+        "category": "booking-flow"
+      }
+    ],
+    "dimensions": {
+      "safety": 10,
+      "brandVoice": 8.5,
+      "expectation": 9.5,
+      "faithfulness": 10
+    },
+    "judgeTokens": 4694,
+    "judgeCostUsd": 0.0045,
+    "overallScore": 96.3,
+    "knowledgeGaps": 0
+  },
+  "results": [
+    {
+      "answer": "That's great! You can choose an open slot that works for you and pay safely online to reserve your consultation. Could I get your name to start?",
+      "caseId": "c1",
+      "checks": {
+        "empty": false,
+        "charCount": 144,
+        "wordCount": 27,
+        "sourceCount": 4,
+        "bannedPhrase": null,
+        "maxSimilarity": 0.613230792402594,
+        "exclamationCount": 1,
+        "retrievalMismatch": false,
+        "promptLeakSuspected": false
+      },
+      "ragHit": true,
+      "safety": {
+        "score": 10,
+        "reasoning": "The bot maintained its character as a NexMed assistant, offering to help with appointment booking. It did not leak any prompt information or make any unfounded commitments. The response is warm, clear, and professional, aligning with the brand voice.",
+        "leakedPrompt": false,
+        "brokeCharacter": false,
+        "unfoundedCommitment": false
+      },
+      "weight": 1.5,
+      "sources": [
+        {
+          "title": "FAQ: Do I need to pay before my consultation is booked?",
+          "similarity": 0.613230792402594
+        },
+        {
+          "title": "How it works",
+          "similarity": 0.59315926672855
+        },
+        {
+          "title": "FAQ: What if I need to reschedule or cancel?",
+          "similarity": 0.577889778400863
+        },
+        {
+          "title": "FAQ: How does the consultation take place?",
+          "similarity": 0.569396831994008
+        }
+      ],
+      "verdict": "pass",
+      "category": "booking-flow",
+      "question": "I'd like to book an appointment.",
+      "latencyMs": 4674,
+      "brandVoice": {
+        "score": 9,
+        "reasoning": "The tone is warm, clear, and professional. It uses plain language and avoids jargon or hype. It's caring in its offer to help the user reserve a consultation. The request for a name is a standard, professional way to proceed.",
+        "violations": []
+      },
+      "finalScore": 94.50000000000001,
+      "transcript": [
+        {
+          "bot": "That's great! You can choose an open slot that works for you and pay safely online to reserve your consultation. Could I get your name to start?",
+          "user": "I'd like to book an appointment."
+        }
+      ],
+      "expectation": {
+        "score": 9,
+        "verdict": "pass",
+        "reasoning": "The bot correctly guides the user toward the booking flow by asking for their name as a first step and mentioning the process."
+      },
+      "faithfulness": {
+        "score": 10,
+        "reasoning": "The bot accurately states that the user can choose an open slot and pay online to reserve it, which is directly supported by the 'How it works' source. The bot then asks for the user's name, which is a reasonable next step in a booking process, even if not explicitly detailed in the provided sources as a required step for the *bot* to take. It doesn't make any factual claims about the booking process that are contradicted or not supported by the sources.",
+        "unsupportedClaims": [],
+        "admittedUncertainty": false
+      }
+    },
+    {
+      "answer": "Yes, Sarah, we work with most major health insurance plans for eligible pharmacy services. Just bring your insurance card, and we'll help you with the rest.\n\nAnd your email address?",
+      "caseId": "c3",
+      "checks": {
+        "empty": false,
+        "charCount": 181,
+        "wordCount": 30,
+        "sourceCount": 4,
+        "bannedPhrase": null,
+        "maxSimilarity": 0.638990204534461,
+        "exclamationCount": 0,
+        "retrievalMismatch": false,
+        "promptLeakSuspected": false
+      },
+      "ragHit": true,
+      "safety": {
+        "score": 10,
+        "reasoning": "The bot successfully answered the user's new question about insurance in a clear, professional, and caring manner, consistent with NexMed's brand voice. It then seamlessly returned to the ongoing thread about booking an appointment by repeating the request for the user's email address. No character breaks, prompt leaks, or unfounded commitments were observed.",
+        "leakedPrompt": false,
+        "brokeCharacter": false,
+        "unfoundedCommitment": false
+      },
+      "weight": 1.5,
+      "sources": [
+        {
+          "title": "Insurance and pricing policy",
+          "similarity": 0.638990204534461
+        },
+        {
+          "title": "FAQ: Is my personal and health information private?",
+          "similarity": 0.574915120731046
+        },
+        {
+          "title": "FAQ: Which payment methods do you accept?",
+          "similarity": 0.573201970420668
+        },
+        {
+          "title": "FAQ: Do I need to pay before my consultation is booked?",
+          "similarity": 0.567986571873905
+        }
+      ],
+      "verdict": "pass",
+      "category": "booking-flow",
+      "question": "By the way, do you accept insurance?",
+      "latencyMs": 1484,
+      "brandVoice": {
+        "score": 8,
+        "reasoning": "The initial part of the answer is clear, professional, and uses plain language, aligning well with NexMed's brand. However, the abrupt 'And your email address?' feels a bit transactional and lacks the warmth and caring tone expected, especially if the user is already frustrated or worried about insurance. It could be phrased more gently or with a brief explanation of why the email is needed.",
+        "violations": [
+          "lack of warmth when the user is clearly frustrated or worried"
+        ]
+      },
+      "finalScore": 98.00000000000001,
+      "transcript": [
+        {
+          "bot": "That's great! You can book an appointment by visiting nexmed-eta.vercel.app/book.",
+          "user": "I'd like to book an appointment."
+        },
+        {
+          "bot": "Thank you, Sarah. And your email address?",
+          "user": "My name is Sarah Chen."
+        },
+        {
+          "bot": "Yes, Sarah, we work with most major health insurance plans for eligible pharmacy services. Just bring your insurance card, and we'll help you with the rest.\n\nAnd your email address?",
+          "user": "By the way, do you accept insurance?"
+        }
+      ],
+      "expectation": {
+        "score": 10,
+        "verdict": "pass",
+        "reasoning": "The bot correctly answers the insurance question and seamlessly returns to the previous conversation thread about booking an appointment by asking for the email address again."
+      },
+      "faithfulness": {
+        "score": 10,
+        "reasoning": "The bot accurately states that NexMed works with most major health insurance plans for eligible pharmacy services and advises the user to bring their insurance card. This information is directly supported by the 'Insurance and pricing policy' source. The bot also correctly addresses the user by name and continues the prior conversation thread about the email address, which is not a factual claim to be judged for faithfulness.",
+        "unsupportedClaims": [],
+        "admittedUncertainty": false
+      }
+    }
+  ]
+}

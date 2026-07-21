@@ -37,7 +37,7 @@ export default async function BookPage({
         <div className="relative mx-auto max-w-5xl w-full px-6 py-12 text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-teal">Book</p>
           <h1 className="mt-2 text-4xl font-bold text-white">Reserve your consultation</h1>
-          <p className="mx-auto mt-3 max-w-xl text-lg text-offwhite/80">Pick a time that works for you — confirmed the moment your payment goes through.</p>
+          <p className="mx-auto mt-3 max-w-xl text-lg text-offwhite/80">Pick a time that works for you, confirmed the moment your payment goes through.</p>
         </div>
       </div>
     <div className="mx-auto max-w-5xl px-6 py-16">

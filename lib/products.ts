@@ -16,9 +16,6 @@ export type Product = {
   sort_order: number;
 };
 
-function img(text: string) {
-  return `https://placehold.co/600x400/0a2540/38bdf8?text=${encodeURIComponent(text)}&font=lato`;
-}
 
 /** Sample catalog shown before the database is configured (mirrors 0005 seed). */
 export const defaultProducts: Omit<Product, "id">[] = [

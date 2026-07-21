@@ -22,6 +22,14 @@ export default async function PaTrackerDashboardPage() {
     ? await admin.from("profiles").select("id, full_name, email").in("id", userIds)
     : { data: [] as { id: string; full_name: string | null; email: string | null }[] };
   const profileById = new Map((profiles ?? []).map((p) => [p.id, p]));
+  // Computed once per request, before render, rather than inside the map
+  // below — this is a Server Component so there's no hydration mismatch
+  // risk, but hoisting keeps the render body itself pure. The React
+  // Compiler's purity lint can't distinguish Server Components (one render
+  // per request, not re-rendered) from Client Components (where Date.now()
+  // in render is genuinely unsafe) — this is a false positive here.
+  // eslint-disable-next-line react-hooks/purity
+  const now = Date.now();
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
@@ -37,7 +45,7 @@ export default async function PaTrackerDashboardPage() {
 
       {overdue.length === 0 ? (
         <div className="rounded-2xl border border-divider bg-card p-8 text-center">
-          <p className="text-muted">Nothing overdue — you're all caught up.</p>
+          <p className="text-muted">Nothing overdue. You&apos;re all caught up.</p>
         </div>
       ) : (
         <div className="overflow-hidden rounded-2xl border border-divider bg-card">
@@ -54,9 +62,7 @@ export default async function PaTrackerDashboardPage() {
             <tbody>
               {overdue.map((c) => {
                 const assignee = c.assignedTo ? profileById.get(c.assignedTo) : null;
-                const daysOverdue = Math.floor(
-                  (Date.now() - new Date(c.dueAt!).getTime()) / (1000 * 60 * 60 * 24),
-                );
+                const daysOverdue = Math.floor((now - new Date(c.dueAt!).getTime()) / (1000 * 60 * 60 * 24));
                 return (
                   <tr key={c.id} className="border-b border-divider last:border-0">
                     <td className="px-4 py-3 text-offwhite">

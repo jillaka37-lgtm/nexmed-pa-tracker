@@ -37,7 +37,7 @@ export default async function ServicesPage() {
         <div className="relative mx-auto max-w-6xl w-full px-6 py-14">
           <p className="text-sm font-semibold uppercase tracking-widest text-teal">Services</p>
           <h1 className="mt-2 text-4xl font-bold sm:text-5xl text-white">Care that starts with a conversation</h1>
-          <p className="mt-4 max-w-xl text-lg text-offwhite/80">Personal consultations, in-pharmacy services, and expert guidance — all in one place.</p>
+          <p className="mt-4 max-w-xl text-lg text-offwhite/80">Personal consultations, in-pharmacy services, and expert guidance, all in one place.</p>
         </div>
       </div>
     <div className="relative">

@@ -47,7 +47,7 @@ export default async function PaTrackerPage() {
       <div className="mt-10">
         <h2 className="mb-4 text-lg font-semibold text-offwhite">Your cases</h2>
         {cases.length === 0 ? (
-          <p className="text-muted">No cases yet — create your first one above.</p>
+          <p className="text-muted">No cases yet. Create your first one above.</p>
         ) : (
           <div className="overflow-hidden rounded-2xl border border-divider bg-card">
             <table className="w-full text-left text-sm">

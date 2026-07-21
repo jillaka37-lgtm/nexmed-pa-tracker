@@ -28,7 +28,7 @@ export default async function MessagesPage() {
       <div className="mt-8 rounded-2xl border border-divider bg-surface p-6">
         <div className="max-h-[28rem] space-y-3 overflow-y-auto">
           {messages.length === 0 ? (
-            <p className="text-center text-muted">No messages yet — say hello below.</p>
+            <p className="text-center text-muted">No messages yet. Say hello below.</p>
           ) : (
             messages.map((m) => (
               <div key={m.id} className={`flex ${m.sender_role === "patient" ? "justify-end" : "justify-start"}`}>
